@@ -1,6 +1,5 @@
 package it.smartcommunitylabdhub.core.models.dtos;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -25,8 +24,6 @@ public class ProjectDTO {
     private String source;
     private Map<String, Object> extra;
     private String state;
-    private Date created;
-    private Date updated;
     private List<FunctionDTO> functions;
     private List<ArtifactDTO> artifacts;
     private List<WorkflowDTO> workflows;

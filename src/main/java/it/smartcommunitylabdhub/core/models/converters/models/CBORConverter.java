@@ -1,4 +1,4 @@
-package it.smartcommunitylabdhub.core.models.converters.fields;
+package it.smartcommunitylabdhub.core.models.converters.models;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,7 +26,8 @@ public class CBORConverter implements Converter<Map<String, Object>, byte[]> {
     }
 
     @Override
-    public Map<String, Object> convertReverse(byte[] cborBytes) throws CustomException {
+    @SuppressWarnings("unchecked")
+    public Map<String, Object> reverseConvert(byte[] cborBytes) throws CustomException {
         ObjectMapper objectMapper = new ObjectMapper(new CBORFactory());
         try {
             return objectMapper.readValue(cborBytes, Map.class);

@@ -1,6 +1,5 @@
 package it.smartcommunitylabdhub.core.services.builders;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 

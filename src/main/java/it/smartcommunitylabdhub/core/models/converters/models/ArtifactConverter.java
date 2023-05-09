@@ -16,7 +16,7 @@ public class ArtifactConverter implements Converter<Artifact, ArtifactDTO> {
     }
 
     @Override
-    public Artifact convertReverse(ArtifactDTO artifactDTO) throws CustomException {
+    public Artifact reverseConvert(ArtifactDTO artifactDTO) throws CustomException {
         return Artifact.builder().name(artifactDTO.getName()).build();
     }
 

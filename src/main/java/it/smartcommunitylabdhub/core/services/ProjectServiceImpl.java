@@ -3,6 +3,7 @@ package it.smartcommunitylabdhub.core.services;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import it.smartcommunitylabdhub.core.exception.CustomException;
@@ -10,11 +11,9 @@ import it.smartcommunitylabdhub.core.models.Artifact;
 import it.smartcommunitylabdhub.core.models.Function;
 import it.smartcommunitylabdhub.core.models.Project;
 import it.smartcommunitylabdhub.core.models.Workflow;
-import it.smartcommunitylabdhub.core.models.converters.fields.CBORConverter;
+import it.smartcommunitylabdhub.core.models.converters.CommandFactory;
+import it.smartcommunitylabdhub.core.models.converters.ConversionUtils;
 import it.smartcommunitylabdhub.core.models.converters.interfaces.Converter;
-import it.smartcommunitylabdhub.core.models.converters.models.ArtifactConverter;
-import it.smartcommunitylabdhub.core.models.converters.models.FunctionConverter;
-import it.smartcommunitylabdhub.core.models.converters.models.WorkflowConverter;
 import it.smartcommunitylabdhub.core.models.dtos.ArtifactDTO;
 import it.smartcommunitylabdhub.core.models.dtos.FunctionDTO;
 import it.smartcommunitylabdhub.core.models.dtos.ProjectDTO;
@@ -32,24 +31,17 @@ public class ProjectServiceImpl implements ProjectService {
     private final FunctionRepository functionRepository;
     private final ArtifactRepository artifactRepository;
     private final WorkflowRepository workflowRepository;
-    private final FunctionConverter functionConverter;
-    private final ArtifactConverter artifactConverter;
-    private final WorkflowConverter workflowConverter;
-    private final CBORConverter cborConverter;
+    private final CommandFactory commandFactory;
 
     public ProjectServiceImpl(
             ProjectRepository projectRepository, FunctionRepository functionRepository,
             ArtifactRepository artifactRepository, WorkflowRepository workflowRepository,
-            FunctionConverter functionConverter, ArtifactConverter artifactConverter,
-            WorkflowConverter workflowConverter, CBORConverter cborConverter) {
+            CommandFactory commandFactory) {
         this.projectRepository = projectRepository;
         this.functionRepository = functionRepository;
         this.artifactRepository = artifactRepository;
         this.workflowRepository = workflowRepository;
-        this.functionConverter = functionConverter;
-        this.artifactConverter = artifactConverter;
-        this.workflowConverter = workflowConverter;
-        this.cborConverter = cborConverter;
+        this.commandFactory = commandFactory;
 
     }
 
@@ -66,6 +58,10 @@ public class ProjectServiceImpl implements ProjectService {
         List<Artifact> artifacts = artifactRepository.findByProject(project.getName());
         List<Workflow> workflows = workflowRepository.findByProject(project.getName());
 
+        // ConverterCommand<byte[], Map<String, Object>> convertExtra =
+        // commandFactory.createReverseConvertCommand("cbor",
+        // project.getExtra());
+
         Optional<ProjectDTO> projectDTO;
 
         try {
@@ -74,11 +70,23 @@ public class ProjectServiceImpl implements ProjectService {
                     .setName(project.getName())
                     .setDescription(project.getDescription())
                     .setSource(project.getSource())
-                    .setExtra(cborConverter.convertReverse(project.getExtra()))
+                    .setExtra(ConversionUtils.reverse(
+                            project.getExtra(),
+                            commandFactory,
+                            "cbor"))
                     .setState(project.getState().name())
-                    .setFunctions(convertEntities(functions, functionConverter))
-                    .setArtifacts(convertEntities(artifacts, artifactConverter))
-                    .setWorkflows(convertEntities(workflows, workflowConverter))
+                    .setFunctions((List<FunctionDTO>) ConversionUtils.reverseIterable(
+                            functions,
+                            commandFactory,
+                            "function", FunctionDTO.class))
+                    .setArtifacts((List<ArtifactDTO>) ConversionUtils.reverseIterable(
+                            artifacts,
+                            commandFactory,
+                            "artifact", ArtifactDTO.class))
+                    .setWorkflows((List<WorkflowDTO>) ConversionUtils.reverseIterable(
+                            workflows,
+                            commandFactory,
+                            "workflow", WorkflowDTO.class))
                     .build());
         } catch (CustomException e) {
             projectDTO = Optional.empty();

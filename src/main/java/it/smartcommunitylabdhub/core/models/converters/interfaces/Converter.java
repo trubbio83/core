@@ -2,8 +2,8 @@ package it.smartcommunitylabdhub.core.models.converters.interfaces;
 
 import it.smartcommunitylabdhub.core.exception.CustomException;
 
-public interface Converter<S, T> {
-    T convert(S source) throws CustomException;
+public interface Converter<T, R> {
+    R convert(T input) throws CustomException;
 
-    S convertReverse(T target) throws CustomException;
+    T reverseConvert(R input) throws CustomException;
 }

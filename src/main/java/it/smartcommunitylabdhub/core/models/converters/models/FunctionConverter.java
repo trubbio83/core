@@ -9,7 +9,6 @@ import it.smartcommunitylabdhub.core.models.dtos.FunctionDTO;
 
 @Component
 public class FunctionConverter implements Converter<Function, FunctionDTO> {
-
     @Override
     public FunctionDTO convert(Function function) throws CustomException {
         return FunctionDTO.builder()
@@ -19,7 +18,7 @@ public class FunctionConverter implements Converter<Function, FunctionDTO> {
     }
 
     @Override
-    public Function convertReverse(FunctionDTO functionDTO) throws CustomException {
+    public Function reverseConvert(FunctionDTO functionDTO) throws CustomException {
         return Function.builder().name(functionDTO.getName()).build();
     }
 

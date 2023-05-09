@@ -16,7 +16,7 @@ public class WorkflowConverter implements Converter<Workflow, WorkflowDTO> {
     }
 
     @Override
-    public Workflow convertReverse(WorkflowDTO workflowDTO) throws CustomException {
+    public Workflow reverseConvert(WorkflowDTO workflowDTO) throws CustomException {
         return Workflow.builder().name(workflowDTO.getName()).build();
     }
 
