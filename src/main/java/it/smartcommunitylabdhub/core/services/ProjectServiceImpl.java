@@ -2,7 +2,6 @@ package it.smartcommunitylabdhub.core.services;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -13,7 +12,6 @@ import it.smartcommunitylabdhub.core.models.Project;
 import it.smartcommunitylabdhub.core.models.Workflow;
 import it.smartcommunitylabdhub.core.models.converters.CommandFactory;
 import it.smartcommunitylabdhub.core.models.converters.ConversionUtils;
-import it.smartcommunitylabdhub.core.models.converters.interfaces.Converter;
 import it.smartcommunitylabdhub.core.models.dtos.ArtifactDTO;
 import it.smartcommunitylabdhub.core.models.dtos.FunctionDTO;
 import it.smartcommunitylabdhub.core.models.dtos.ProjectDTO;
@@ -135,21 +133,6 @@ public class ProjectServiceImpl implements ProjectService {
     public List<WorkflowDTO> getProjectWorkflows(String name) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getProjectWorkflows'");
-    }
-
-    /**
-     * Map entities DAO into the corresponding DTO
-     * 
-     * @param <T>
-     * @param <U>
-     * @param entities
-     * @param converter
-     * @return
-     */
-    private <T, U> List<U> convertEntities(List<T> entities, Converter<T, U> converter) {
-        return entities.stream()
-                .map(converter::convert)
-                .collect(Collectors.toList());
     }
 
 }

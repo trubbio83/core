@@ -23,6 +23,7 @@ public class CommandFactory {
         return new ReverseConvertCommand<>(converter, input);
     }
 
+    @SuppressWarnings("unchecked")
     private <T, R> Converter<T, R> getConverter(String kind) {
         return (Converter<T, R>) converterFactory.getConverter(kind);
     }
