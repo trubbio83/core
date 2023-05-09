@@ -42,6 +42,7 @@ class ConvertFunctionTests {
 
         // Assert the output is of type Integer
         Assertions.assertEquals(Integer.class, output.getClass());
+        Assertions.assertEquals(1, output);
     }
 
     @Test
@@ -55,6 +56,7 @@ class ConvertFunctionTests {
 
         // Assert that result is equal to integer.
         Assertions.assertEquals(String.class, output.getClass());
+        Assertions.assertEquals("1", output);
     }
 
     @Test
