@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import ch.qos.logback.core.pattern.ConverterUtil;
 import it.smartcommunitylabdhub.core.exception.CustomException;
 import it.smartcommunitylabdhub.core.models.Artifact;
 import it.smartcommunitylabdhub.core.models.Function;
@@ -100,9 +101,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectDTO createProject() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createProject'");
+    public ProjectDTO createProject(ProjectDTO projectDTO) {
+        Project project = ConversionUtils.reverse(projectDTO, commandFactory, "project");
+        this.projectRepository.save(project);
+
+        return projectDTO;
+
     }
 
     @Override

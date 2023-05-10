@@ -10,6 +10,7 @@ import it.smartcommunitylabdhub.core.models.converters.models.ArtifactConverter;
 import it.smartcommunitylabdhub.core.models.converters.models.CBORConverter;
 import it.smartcommunitylabdhub.core.models.converters.models.FunctionConverter;
 import it.smartcommunitylabdhub.core.models.converters.models.IntegerConverter;
+import it.smartcommunitylabdhub.core.models.converters.models.ProjectConverter;
 import it.smartcommunitylabdhub.core.models.converters.models.WorkflowConverter;
 
 @Configuration
@@ -23,6 +24,7 @@ public class ConverterConfig {
         factory.registerConverter("function", FunctionConverter::new);
         factory.registerConverter("fartifact", ArtifactConverter::new);
         factory.registerConverter("workflow", WorkflowConverter::new);
+        factory.registerConverter("project", ProjectConverter::new);
         factory.registerConverter("cbor", CBORConverter::new);
         factory.registerConverter("integer", IntegerConverter::new);
 
