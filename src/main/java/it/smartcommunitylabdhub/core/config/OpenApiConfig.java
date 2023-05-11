@@ -11,8 +11,8 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI coreMicroserviceOpenAPI() {
         return new OpenAPI()
-                .info(new Info().title("Your API Title")
-                        .description("Your API Description")
+                .info(new Info().title("Core")
+                        .description("{Piattaforma}")
                         .version("1.0"));
     }
 }

@@ -1,6 +1,7 @@
 package it.smartcommunitylabdhub.core.models.converters.models;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.cbor.CBORFactory;
 
@@ -27,14 +28,14 @@ public class CBORConverter implements Converter<Map<String, Object>, byte[]> {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public Map<String, Object> reverseConvert(byte[] cborBytes) throws CustomException {
         ObjectMapper objectMapper = new ObjectMapper(new CBORFactory());
         try {
             if (cborBytes == null) {
                 return new HashMap<>();
             }
-            return objectMapper.readValue(cborBytes, Map.class);
+            return objectMapper.readValue(cborBytes, new TypeReference<Map<String, Object>>() {
+            });
         } catch (IOException e) {
             throw new CustomException(null, e);
         }

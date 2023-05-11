@@ -7,6 +7,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 
+import it.smartcommunitylabdhub.core.models.interfaces.BaseEntity;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class ProjectDTO {
+public class ProjectDTO implements BaseEntity {
     private String id;
     @NotNull
     private String name;

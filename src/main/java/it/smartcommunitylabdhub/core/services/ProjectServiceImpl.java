@@ -1,10 +1,11 @@
 package it.smartcommunitylabdhub.core.services;
 
 import java.util.List;
-import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import it.smartcommunitylabdhub.core.exception.CoreException;
 import it.smartcommunitylabdhub.core.exception.CustomException;
 import it.smartcommunitylabdhub.core.models.Artifact;
 import it.smartcommunitylabdhub.core.models.Function;
@@ -48,8 +49,10 @@ public class ProjectServiceImpl implements ProjectService {
 
         Project project = projectRepository.findById(uuid).orElse(null);
         if (project == null) {
-            // TODO: Handle project not found
-            return null;
+            throw new CoreException(
+                    "project-not-found",
+                    "The project you are searching for does not exist.",
+                    HttpStatus.NOT_FOUND);
         }
 
         List<Function> functions = functionRepository.findByProject(project.getName());
@@ -60,37 +63,15 @@ public class ProjectServiceImpl implements ProjectService {
         // commandFactory.createReverseConvertCommand("cbor",
         // project.getExtra());
 
-        Optional<ProjectDTO> projectDTO;
-
         try {
-            projectDTO = Optional.of(new ProjectDTOBuilder()
-                    .setId(project.getId())
-                    .setName(project.getName())
-                    .setDescription(project.getDescription())
-                    .setSource(project.getSource())
-                    .setExtra(ConversionUtils.reverse(
-                            project.getExtra(),
-                            commandFactory,
-                            "cbor"))
-                    // .setState(project.getState().name())
-                    .setFunctions((List<FunctionDTO>) ConversionUtils.reverseIterable(
-                            functions,
-                            commandFactory,
-                            "function", FunctionDTO.class))
-                    .setArtifacts((List<ArtifactDTO>) ConversionUtils.reverseIterable(
-                            artifacts,
-                            commandFactory,
-                            "artifact", ArtifactDTO.class))
-                    .setWorkflows((List<WorkflowDTO>) ConversionUtils.reverseIterable(
-                            workflows,
-                            commandFactory,
-                            "workflow", WorkflowDTO.class))
-                    .build());
-        } catch (CustomException e) {
-            projectDTO = Optional.empty();
-        }
+            return new ProjectDTOBuilder(commandFactory, project, artifacts, functions, workflows).build();
 
-        return projectDTO.orElse(new ProjectDTO());
+        } catch (CustomException e) {
+            throw new CoreException(
+                    "internal-server-error",
+                    e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -101,11 +82,19 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectDTO createProject(ProjectDTO projectDTO) {
-        Project project = ConversionUtils.reverse(projectDTO, commandFactory, "project");
+        Project project = ConversionUtils.convert(projectDTO, commandFactory, "project");
         project.setExtra(ConversionUtils.convert(projectDTO.getExtra(), commandFactory, "cbor"));
         this.projectRepository.save(project);
 
-        return projectDTO;
+        try {
+            return new ProjectDTOBuilder(commandFactory, project, List.of(), List.of(), List.of()).build();
+
+        } catch (CustomException e) {
+            throw new CoreException(
+                    "internal-server-error",
+                    e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
     }
 

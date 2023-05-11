@@ -7,8 +7,5 @@ package it.smartcommunitylabdhub.core.models.interfaces;
  * es: for kind = etl the Entity will receive the EtlService
  */
 public interface BaseEntity {
-    String getProject();
-
-    String getKind();
 
 }
