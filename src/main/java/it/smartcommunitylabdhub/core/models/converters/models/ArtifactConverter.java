@@ -8,16 +8,16 @@ import it.smartcommunitylabdhub.core.models.converters.interfaces.Converter;
 import it.smartcommunitylabdhub.core.models.dtos.ArtifactDTO;
 
 @Component
-public class ArtifactConverter implements Converter<Artifact, ArtifactDTO> {
+public class ArtifactConverter implements Converter<ArtifactDTO, Artifact> {
 
     @Override
-    public ArtifactDTO convert(Artifact artifact) throws CustomException {
-        return new ArtifactDTO(artifact.getId(), artifact.getName());
+    public Artifact convert(ArtifactDTO artifactDTO) throws CustomException {
+        return Artifact.builder().name(artifactDTO.getName()).build();
     }
 
     @Override
-    public Artifact reverseConvert(ArtifactDTO artifactDTO) throws CustomException {
-        return Artifact.builder().name(artifactDTO.getName()).build();
+    public ArtifactDTO reverseConvert(Artifact artifact) throws CustomException {
+        return new ArtifactDTO(artifact.getId(), artifact.getName());
     }
 
 }

@@ -1,11 +1,13 @@
 package it.smartcommunitylabdhub.core.models.dtos;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,10 +21,13 @@ import lombok.Setter;
 @Builder
 public class ProjectDTO {
     private String id;
+    @NotNull
     private String name;
     private String description;
     private String source;
-    private Map<String, Object> extra;
+
+    @Builder.Default
+    private Map<String, Object> extra = new HashMap<>();
     private String state;
     private List<FunctionDTO> functions;
     private List<ArtifactDTO> artifacts;

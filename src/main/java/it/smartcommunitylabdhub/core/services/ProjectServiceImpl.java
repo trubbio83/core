@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import ch.qos.logback.core.pattern.ConverterUtil;
 import it.smartcommunitylabdhub.core.exception.CustomException;
 import it.smartcommunitylabdhub.core.models.Artifact;
 import it.smartcommunitylabdhub.core.models.Function;
@@ -45,9 +44,9 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectDTO getProject(String name) {
+    public ProjectDTO getProject(String uuid) {
 
-        Project project = projectRepository.findByName(name).orElse(null);
+        Project project = projectRepository.findById(uuid).orElse(null);
         if (project == null) {
             // TODO: Handle project not found
             return null;
@@ -73,7 +72,7 @@ public class ProjectServiceImpl implements ProjectService {
                             project.getExtra(),
                             commandFactory,
                             "cbor"))
-                    .setState(project.getState().name())
+                    // .setState(project.getState().name())
                     .setFunctions((List<FunctionDTO>) ConversionUtils.reverseIterable(
                             functions,
                             commandFactory,
@@ -103,6 +102,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectDTO createProject(ProjectDTO projectDTO) {
         Project project = ConversionUtils.reverse(projectDTO, commandFactory, "project");
+        project.setExtra(ConversionUtils.convert(projectDTO.getExtra(), commandFactory, "cbor"));
         this.projectRepository.save(project);
 
         return projectDTO;
@@ -110,13 +110,13 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectDTO updateProject(String name) {
+    public ProjectDTO updateProject(String uuid) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateProject'");
     }
 
     @Override
-    public void deleteProject(String name) {
+    public void deleteProject(String uuid) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteProject'");
     }

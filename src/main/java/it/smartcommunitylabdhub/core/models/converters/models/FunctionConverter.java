@@ -8,18 +8,19 @@ import it.smartcommunitylabdhub.core.models.converters.interfaces.Converter;
 import it.smartcommunitylabdhub.core.models.dtos.FunctionDTO;
 
 @Component
-public class FunctionConverter implements Converter<Function, FunctionDTO> {
+public class FunctionConverter implements Converter<FunctionDTO, Function> {
+
     @Override
-    public FunctionDTO convert(Function function) throws CustomException {
+    public Function convert(FunctionDTO functionDTO) throws CustomException {
+        return Function.builder().name(functionDTO.getName()).build();
+    }
+
+    @Override
+    public FunctionDTO reverseConvert(Function function) throws CustomException {
         return FunctionDTO.builder()
                 .id(function.getId())
                 .name(function.getName())
                 .build();
-    }
-
-    @Override
-    public Function reverseConvert(FunctionDTO functionDTO) throws CustomException {
-        return Function.builder().name(functionDTO.getName()).build();
     }
 
 }

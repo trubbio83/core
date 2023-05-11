@@ -2,6 +2,7 @@ package it.smartcommunitylabdhub.core.controllers.v1;
 
 import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,26 +32,14 @@ public class ProjectControllerV1 {
         return ResponseEntity.ok(this.projectService.getProjects());
     }
 
-    @PostMapping(path = "", produces = "application/json; charset=UTF-8")
+    @PostMapping(value = "", consumes = { MediaType.APPLICATION_JSON_VALUE, "application/x-yaml" })
     public ResponseEntity<ProjectDTO> createProject(@RequestBody ProjectDTO projectDTO) {
         return ResponseEntity.ok(this.projectService.createProject(projectDTO));
     }
 
     @GetMapping(path = "/{uuid}", produces = "application/json; charset=UTF-8")
-    public String getProject(@PathVariable(name = "uuid", required = true) String name) {
-        return null;
-    }
-
-    @GetMapping(produces = "application/json", consumes = "application/json", path = "/json")
-    public ResponseEntity<String> getJson() {
-        return ResponseEntity.ok("hello I'm a json");
-
-    }
-
-    @GetMapping(produces = "text/plain", consumes = "text/plain", path = "/json")
-    @ResponseBody
-    public String getJson1() {
-        return "hello I'm a string";
+    public ResponseEntity<ProjectDTO> getProject(@PathVariable(name = "uuid", required = true) String uuid) {
+        return ResponseEntity.ok(this.projectService.getProject(uuid));
     }
 
 }

@@ -13,11 +13,11 @@ public interface ProjectService {
 
     ProjectDTO createProject(ProjectDTO projectDTO);
 
-    ProjectDTO getProject(String name);
+    ProjectDTO getProject(String uuid);
 
-    ProjectDTO updateProject(String name);
+    ProjectDTO updateProject(String uuid);
 
-    void deleteProject(String name);
+    void deleteProject(String uuid);
 
     List<FunctionDTO> getProjectFunctions(String name);
 

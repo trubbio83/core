@@ -8,19 +8,19 @@ import it.smartcommunitylabdhub.core.models.converters.interfaces.Converter;
 import it.smartcommunitylabdhub.core.models.dtos.ProjectDTO;
 
 @Component
-public class ProjectConverter implements Converter<Project, ProjectDTO> {
+public class ProjectConverter implements Converter<ProjectDTO, Project> {
 
     @Override
-    public ProjectDTO convert(Project project) throws CustomException {
+    public Project convert(ProjectDTO projectDTO) throws CustomException {
+        return Project.builder().name(projectDTO.getName()).build();
+    }
+
+    @Override
+    public ProjectDTO reverseConvert(Project project) throws CustomException {
         return ProjectDTO.builder()
                 .id(project.getId())
                 .name(project.getName())
                 .build();
-    }
-
-    @Override
-    public Project reverseConvert(ProjectDTO projectDTO) throws CustomException {
-        return Project.builder().name(projectDTO.getName()).build();
     }
 
 }

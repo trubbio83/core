@@ -8,6 +8,7 @@ import it.smartcommunitylabdhub.core.exception.CustomException;
 import it.smartcommunitylabdhub.core.models.converters.interfaces.Converter;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
@@ -30,6 +31,9 @@ public class CBORConverter implements Converter<Map<String, Object>, byte[]> {
     public Map<String, Object> reverseConvert(byte[] cborBytes) throws CustomException {
         ObjectMapper objectMapper = new ObjectMapper(new CBORFactory());
         try {
+            if (cborBytes == null) {
+                return new HashMap<>();
+            }
             return objectMapper.readValue(cborBytes, Map.class);
         } catch (IOException e) {
             throw new CustomException(null, e);
