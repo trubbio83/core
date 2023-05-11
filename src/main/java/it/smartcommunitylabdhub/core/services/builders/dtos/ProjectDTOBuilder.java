@@ -1,4 +1,4 @@
-package it.smartcommunitylabdhub.core.services.builders;
+package it.smartcommunitylabdhub.core.services.builders.dtos;
 
 import java.util.List;
 
@@ -12,7 +12,8 @@ import it.smartcommunitylabdhub.core.models.dtos.ArtifactDTO;
 import it.smartcommunitylabdhub.core.models.dtos.FunctionDTO;
 import it.smartcommunitylabdhub.core.models.dtos.ProjectDTO;
 import it.smartcommunitylabdhub.core.models.dtos.WorkflowDTO;
-import it.smartcommunitylabdhub.core.services.factory.DTOFactory;
+import it.smartcommunitylabdhub.core.models.enums.State;
+import it.smartcommunitylabdhub.core.services.factory.EntityFactory;
 
 public class ProjectDTOBuilder {
 
@@ -36,9 +37,14 @@ public class ProjectDTOBuilder {
         }
 
         public ProjectDTO build() {
-                return DTOFactory.createDTO(ProjectDTO::new, project, builder -> {
-                        builder.with(dto -> dto.setName(project.getName()))
+                return EntityFactory.create(ProjectDTO::new, project, builder -> {
+                        builder
+                                        .with(dto -> dto.setId(project.getId()))
+                                        .with(dto -> dto.setName(project.getName()))
                                         .with(dto -> dto.setDescription(project.getDescription()))
+                                        .with(dto -> dto.setSource(project.getSource()))
+                                        .with(dto -> dto.setState(project.getState() == null ? State.CREATED.name()
+                                                        : project.getState().name()))
                                         .with(dto -> dto.setExtra(ConversionUtils.reverse(
                                                         project.getExtra(),
                                                         commandFactory,

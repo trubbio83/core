@@ -2,6 +2,7 @@ package it.smartcommunitylabdhub.core.controllers.v1;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.smartcommunitylabdhub.core.annotations.ApiVersion;
@@ -28,8 +28,8 @@ public class ProjectControllerV1 {
     }
 
     @GetMapping(path = "", produces = "application/json; charset=UTF-8")
-    public ResponseEntity<List<ProjectDTO>> getProjects() {
-        return ResponseEntity.ok(this.projectService.getProjects());
+    public ResponseEntity<List<ProjectDTO>> getProjects(Pageable pageable) {
+        return ResponseEntity.ok(this.projectService.getProjects(pageable));
     }
 
     @PostMapping(value = "", consumes = { MediaType.APPLICATION_JSON_VALUE, "application/x-yaml" })
