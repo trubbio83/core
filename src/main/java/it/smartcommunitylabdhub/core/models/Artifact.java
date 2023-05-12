@@ -4,8 +4,9 @@ import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.repository.core.support.RepositoryMethodInvocationListener.RepositoryMethodInvocationResult.State;
 
+import it.smartcommunitylabdhub.core.models.enums.State;
+import it.smartcommunitylabdhub.core.models.interfaces.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -23,7 +24,7 @@ import lombok.Setter;
 @Builder
 @Entity
 @Table(name = "artifacts")
-public class Artifact {
+public class Artifact implements BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;

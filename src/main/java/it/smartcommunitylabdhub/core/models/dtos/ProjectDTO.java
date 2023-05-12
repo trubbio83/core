@@ -1,5 +1,6 @@
 package it.smartcommunitylabdhub.core.models.dtos;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,8 @@ public class ProjectDTO implements BaseEntity {
     private List<FunctionDTO> functions;
     private List<ArtifactDTO> artifacts;
     private List<WorkflowDTO> workflows;
+    private Date created;
+    private Date updated;
 
     @JsonAnyGetter
     public Map<String, Object> getExtra() {

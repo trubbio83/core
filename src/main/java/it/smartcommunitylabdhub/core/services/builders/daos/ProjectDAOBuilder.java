@@ -7,12 +7,12 @@ import it.smartcommunitylabdhub.core.models.dtos.ProjectDTO;
 import it.smartcommunitylabdhub.core.models.enums.State;
 import it.smartcommunitylabdhub.core.services.factory.EntityFactory;
 
-public class ProjectBuilder {
+public class ProjectDAOBuilder {
 
         private CommandFactory commandFactory;
         private ProjectDTO projectDTO;
 
-        public ProjectBuilder(
+        public ProjectDAOBuilder(
                         CommandFactory commandFactory,
                         ProjectDTO projectDTO) {
                 this.projectDTO = projectDTO;

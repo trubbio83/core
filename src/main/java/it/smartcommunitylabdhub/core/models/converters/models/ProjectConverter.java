@@ -30,6 +30,8 @@ public class ProjectConverter implements Converter<ProjectDTO, Project> {
                 .description(project.getDescription())
                 .source(project.getSource())
                 .state(project.getState() == null ? State.CREATED.name() : project.getState().name())
+                .created(project.getCreated())
+                .updated(project.getUpdated())
                 .build();
     }
 

@@ -64,7 +64,9 @@ public class ProjectDTOBuilder {
                                                         (List<WorkflowDTO>) ConversionUtils.reverseIterable(
                                                                         workflows,
                                                                         commandFactory,
-                                                                        "workflow", WorkflowDTO.class)));
+                                                                        "workflow", WorkflowDTO.class)))
+                                        .with(dto -> dto.setCreated(project.getCreated()))
+                                        .with(dto -> dto.setUpdated(project.getUpdated()));
 
                 });
         }

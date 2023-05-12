@@ -4,25 +4,21 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 
-import it.smartcommunitylabdhub.core.models.Run;
 import it.smartcommunitylabdhub.core.models.converters.CommandFactory;
 import it.smartcommunitylabdhub.core.models.dtos.FunctionDTO;
+import it.smartcommunitylabdhub.core.models.dtos.RunDTO;
 import it.smartcommunitylabdhub.core.repositories.FunctionRepository;
-import it.smartcommunitylabdhub.core.repositories.RunRepository;
 import it.smartcommunitylabdhub.core.services.interfaces.FunctionService;
 
 public class FunctionServiceImpl implements FunctionService {
 
     private final FunctionRepository functionRepository;
-    private final RunRepository runRepository;
     private final CommandFactory commandFactory;
 
     public FunctionServiceImpl(
             FunctionRepository functionRepository,
-            RunRepository runRepository,
             CommandFactory commandFactory) {
         this.functionRepository = functionRepository;
-        this.runRepository = runRepository;
         this.commandFactory = commandFactory;
 
     }
@@ -58,7 +54,7 @@ public class FunctionServiceImpl implements FunctionService {
     }
 
     @Override
-    public List<Run> getFunctionRuns(String uuid) {
+    public List<RunDTO> getFunctionRuns(String uuid) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getFunctionRuns'");
     }

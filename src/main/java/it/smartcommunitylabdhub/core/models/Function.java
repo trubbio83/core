@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import it.smartcommunitylabdhub.core.models.enums.State;
+import it.smartcommunitylabdhub.core.models.interfaces.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -23,7 +24,7 @@ import lombok.Setter;
 @Builder
 @Entity
 @Table(name = "functions")
-public class Function {
+public class Function implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
