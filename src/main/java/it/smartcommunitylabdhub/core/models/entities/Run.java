@@ -7,7 +7,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import it.smartcommunitylabdhub.core.models.enums.State;
 import it.smartcommunitylabdhub.core.models.interfaces.BaseEntity;
-import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
