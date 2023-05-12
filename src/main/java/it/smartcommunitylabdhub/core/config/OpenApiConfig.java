@@ -9,12 +9,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 
-@Configuration
-@EnableWebMvc
-@ComponentScan(basePackages = { "org.springdoc" })
-public class OpenApiConfig implements WebMvcConfigurer {
+// @Configuration
+// @EnableWebMvc
+//@ComponentScan(basePackages = { "org.springdoc" })
+public class OpenApiConfig {
     @Bean
-    public OpenAPI coreMicroserviceOpenAPI() {
+    OpenAPI coreMicroserviceOpenAPI() {
         return new OpenAPI()
                 .info(new Info().title("Core")
                         .description("{Piattaforma}")

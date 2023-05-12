@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.smartcommunitylabdhub.core.annotations.ApiVersion;
+import it.smartcommunitylabdhub.core.models.dtos.ArtifactDTO;
+import it.smartcommunitylabdhub.core.models.dtos.FunctionDTO;
 import it.smartcommunitylabdhub.core.models.dtos.ProjectDTO;
+import it.smartcommunitylabdhub.core.models.dtos.WorkflowDTO;
 import it.smartcommunitylabdhub.core.services.interfaces.ProjectService;
 
 @RestController
@@ -47,6 +51,26 @@ public class ProjectControllerV1 {
             "application/x-yaml" }, produces = "application/json")
     public ResponseEntity<ProjectDTO> updateProject(@RequestBody ProjectDTO projectDTO, @PathVariable String uuid) {
         return ResponseEntity.ok(this.projectService.updateProject(projectDTO, uuid));
+    }
+
+    @DeleteMapping(path = "/{uuid}")
+    public ResponseEntity<Boolean> deleteProject(@PathVariable String uuid) {
+        return ResponseEntity.ok(this.projectService.deleteProject(uuid));
+    }
+
+    @GetMapping(path = "/{uuid}/functions", produces = "application/json; charset=UTF-8")
+    public ResponseEntity<List<FunctionDTO>> projectFunctions(@PathVariable String uuid) {
+        return ResponseEntity.ok(this.projectService.getProjectFunctions(uuid));
+    }
+
+    @GetMapping(path = "/{uuid}/workflows", produces = "application/json; charset=UTF-8")
+    public ResponseEntity<List<WorkflowDTO>> projectWorkflows(@PathVariable String uuid) {
+        return ResponseEntity.ok(this.projectService.getProjectWorkflows(uuid));
+    }
+
+    @GetMapping(path = "/{uuid}/artifacts", produces = "application/json; charset=UTF-8")
+    public ResponseEntity<List<ArtifactDTO>> projectArtifacts(@PathVariable String uuid) {
+        return ResponseEntity.ok(this.projectService.getProjectArtifacts(uuid));
     }
 
 }

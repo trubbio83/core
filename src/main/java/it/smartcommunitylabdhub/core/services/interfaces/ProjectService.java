@@ -19,11 +19,11 @@ public interface ProjectService {
 
     ProjectDTO updateProject(ProjectDTO projectDTO, String uuid);
 
-    void deleteProject(String uuid);
+    boolean deleteProject(String uuid);
 
-    List<FunctionDTO> getProjectFunctions(String name);
+    List<FunctionDTO> getProjectFunctions(String uuid);
 
-    List<ArtifactDTO> getProjectArtifacts(String name);
+    List<ArtifactDTO> getProjectArtifacts(String uuid);
 
-    List<WorkflowDTO> getProjectWorkflows(String name);
+    List<WorkflowDTO> getProjectWorkflows(String uuid);
 }
