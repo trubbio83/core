@@ -50,10 +50,10 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectDTO getProject(String uuid) {
 
-        Project project = projectRepository.findById(uuid).orElse(null);
+        final Project project = projectRepository.findById(uuid).orElse(null);
         if (project == null) {
             throw new CoreException(
-                    "project-not-found",
+                    "ProjectNotFound",
                     "The project you are searching for does not exist.",
                     HttpStatus.NOT_FOUND);
         }
@@ -63,11 +63,16 @@ public class ProjectServiceImpl implements ProjectService {
             List<Artifact> artifacts = artifactRepository.findByProject(project.getName());
             List<Workflow> workflows = workflowRepository.findByProject(project.getName());
 
-            return new ProjectDTOBuilder(commandFactory, project, artifacts, functions, workflows).build();
+            return new ProjectDTOBuilder(
+                    commandFactory,
+                    project,
+                    artifacts,
+                    functions,
+                    workflows).build();
 
         } catch (CustomException e) {
             throw new CoreException(
-                    "internal-server-error",
+                    "InternalServerError",
                     e.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -86,7 +91,7 @@ public class ProjectServiceImpl implements ProjectService {
             }).collect(Collectors.toList());
         } catch (CustomException e) {
             throw new CoreException(
-                    "internal-server-error",
+                    "InternalServerError",
                     e.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -97,15 +102,20 @@ public class ProjectServiceImpl implements ProjectService {
     public ProjectDTO createProject(ProjectDTO projectDTO) {
         try {
             // Build a project and store it on db
-            Project project = new ProjectBuilder(commandFactory, projectDTO).build();
+            final Project project = new ProjectBuilder(commandFactory, projectDTO).build();
             this.projectRepository.save(project);
 
             // Return project DTO
-            return new ProjectDTOBuilder(commandFactory, project, List.of(), List.of(), List.of()).build();
+            return new ProjectDTOBuilder(
+                    commandFactory,
+                    project,
+                    List.of(),
+                    List.of(),
+                    List.of()).build();
 
         } catch (CustomException e) {
             throw new CoreException(
-                    "internal-server-error",
+                    "InternalServerError",
                     e.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -113,9 +123,42 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectDTO updateProject(String uuid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateProject'");
+    public ProjectDTO updateProject(ProjectDTO projectDTO, String uuid) {
+
+        final Project project = projectRepository.findById(uuid).orElse(null);
+        if (project == null) {
+            throw new CoreException(
+                    "ProjectNotFound",
+                    "The project you are searching for does not exist.",
+                    HttpStatus.NOT_FOUND);
+        }
+
+        try {
+
+            ProjectBuilder projectBuilder = new ProjectBuilder(commandFactory, projectDTO);
+
+            final Project projectUpdated = projectBuilder.update(project);
+            this.projectRepository.save(projectUpdated);
+
+            // get functions, artifacts and worflows for current projects
+
+            List<Function> functions = functionRepository.findByProject(projectUpdated.getName());
+            List<Artifact> artifacts = artifactRepository.findByProject(projectUpdated.getName());
+            List<Workflow> workflows = workflowRepository.findByProject(projectUpdated.getName());
+
+            return new ProjectDTOBuilder(
+                    commandFactory,
+                    projectUpdated,
+                    artifacts,
+                    functions,
+                    workflows).build();
+
+        } catch (CustomException e) {
+            throw new CoreException(
+                    "InternalServerError",
+                    e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
