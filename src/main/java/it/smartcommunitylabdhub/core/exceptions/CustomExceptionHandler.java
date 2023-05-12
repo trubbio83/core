@@ -1,4 +1,4 @@
-package it.smartcommunitylabdhub.core.exception;
+package it.smartcommunitylabdhub.core.exceptions;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

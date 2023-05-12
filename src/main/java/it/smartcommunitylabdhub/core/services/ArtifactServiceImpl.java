@@ -8,11 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import it.smartcommunitylabdhub.core.exception.CoreException;
-import it.smartcommunitylabdhub.core.exception.CustomException;
-import it.smartcommunitylabdhub.core.models.Artifact;
+import it.smartcommunitylabdhub.core.exceptions.CoreException;
+import it.smartcommunitylabdhub.core.exceptions.CustomException;
 import it.smartcommunitylabdhub.core.models.converters.CommandFactory;
 import it.smartcommunitylabdhub.core.models.dtos.ArtifactDTO;
+import it.smartcommunitylabdhub.core.models.entities.Artifact;
 import it.smartcommunitylabdhub.core.repositories.ArtifactRepository;
 import it.smartcommunitylabdhub.core.services.builders.dtos.ArtifactDTOBuilder;
 import it.smartcommunitylabdhub.core.services.builders.entities.ArtifactEntityBuilder;

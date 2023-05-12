@@ -3,13 +3,13 @@ package it.smartcommunitylabdhub.core.services.builders.dtos;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import it.smartcommunitylabdhub.core.models.Artifact;
-import it.smartcommunitylabdhub.core.models.Function;
-import it.smartcommunitylabdhub.core.models.Project;
-import it.smartcommunitylabdhub.core.models.Workflow;
 import it.smartcommunitylabdhub.core.models.converters.CommandFactory;
 import it.smartcommunitylabdhub.core.models.converters.ConversionUtils;
 import it.smartcommunitylabdhub.core.models.dtos.ProjectDTO;
+import it.smartcommunitylabdhub.core.models.entities.Artifact;
+import it.smartcommunitylabdhub.core.models.entities.Function;
+import it.smartcommunitylabdhub.core.models.entities.Project;
+import it.smartcommunitylabdhub.core.models.entities.Workflow;
 import it.smartcommunitylabdhub.core.models.enums.State;
 import it.smartcommunitylabdhub.core.services.factory.EntityFactory;
 

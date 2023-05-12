@@ -1,4 +1,4 @@
-package it.smartcommunitylabdhub.core.models;
+package it.smartcommunitylabdhub.core.models.entities;
 
 import java.util.Date;
 
@@ -21,29 +21,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "functions")
-public class Function implements BaseEntity {
+@Table(name = "projects")
+public class Project implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column(nullable = false)
-    private String kind;
-
-    @Column(nullable = false)
-    private String project;
-
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String name;
 
-    private byte[] spec;
+    private String description;
+
+    private String source;
 
     private byte[] extra;
 
@@ -54,9 +50,6 @@ public class Function implements BaseEntity {
     @UpdateTimestamp
     private Date updated;
 
-    private Boolean embedded;
-
     @Enumerated(EnumType.STRING)
     private State state;
-
 }

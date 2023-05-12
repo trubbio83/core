@@ -1,9 +1,9 @@
 package it.smartcommunitylabdhub.core.services.builders.entities;
 
-import it.smartcommunitylabdhub.core.models.Workflow;
 import it.smartcommunitylabdhub.core.models.converters.CommandFactory;
 import it.smartcommunitylabdhub.core.models.converters.ConversionUtils;
 import it.smartcommunitylabdhub.core.models.dtos.WorkflowDTO;
+import it.smartcommunitylabdhub.core.models.entities.Workflow;
 import it.smartcommunitylabdhub.core.models.enums.State;
 import it.smartcommunitylabdhub.core.services.factory.EntityFactory;
 

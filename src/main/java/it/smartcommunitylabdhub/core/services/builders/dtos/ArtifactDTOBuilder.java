@@ -1,9 +1,9 @@
 package it.smartcommunitylabdhub.core.services.builders.dtos;
 
-import it.smartcommunitylabdhub.core.models.Artifact;
 import it.smartcommunitylabdhub.core.models.converters.CommandFactory;
 import it.smartcommunitylabdhub.core.models.converters.ConversionUtils;
 import it.smartcommunitylabdhub.core.models.dtos.ArtifactDTO;
+import it.smartcommunitylabdhub.core.models.entities.Artifact;
 import it.smartcommunitylabdhub.core.models.enums.State;
 import it.smartcommunitylabdhub.core.services.factory.EntityFactory;
 

@@ -6,13 +6,13 @@ import org.springframework.context.annotation.Configuration;
 import it.smartcommunitylabdhub.core.models.converters.CommandFactory;
 import it.smartcommunitylabdhub.core.models.converters.ConverterFactoryImpl;
 import it.smartcommunitylabdhub.core.models.converters.interfaces.ConverterFactory;
-import it.smartcommunitylabdhub.core.models.converters.models.ArtifactConverter;
-import it.smartcommunitylabdhub.core.models.converters.models.CBORConverter;
-import it.smartcommunitylabdhub.core.models.converters.models.FunctionConverter;
-import it.smartcommunitylabdhub.core.models.converters.models.IntegerConverter;
-import it.smartcommunitylabdhub.core.models.converters.models.ProjectConverter;
-import it.smartcommunitylabdhub.core.models.converters.models.RunConverter;
-import it.smartcommunitylabdhub.core.models.converters.models.WorkflowConverter;
+import it.smartcommunitylabdhub.core.models.converters.types.ArtifactConverter;
+import it.smartcommunitylabdhub.core.models.converters.types.CBORConverter;
+import it.smartcommunitylabdhub.core.models.converters.types.FunctionConverter;
+import it.smartcommunitylabdhub.core.models.converters.types.IntegerConverter;
+import it.smartcommunitylabdhub.core.models.converters.types.ProjectConverter;
+import it.smartcommunitylabdhub.core.models.converters.types.RunConverter;
+import it.smartcommunitylabdhub.core.models.converters.types.WorkflowConverter;
 
 @Configuration
 public class ConverterConfig {

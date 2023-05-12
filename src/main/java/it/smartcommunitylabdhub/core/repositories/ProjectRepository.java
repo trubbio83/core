@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import it.smartcommunitylabdhub.core.models.Project;
+import it.smartcommunitylabdhub.core.models.entities.Project;
 
 public interface ProjectRepository extends JpaRepository<Project, String> {
 

@@ -1,4 +1,4 @@
-package it.smartcommunitylabdhub.core.models;
+package it.smartcommunitylabdhub.core.models.entities;
 
 import java.util.Date;
 
@@ -7,7 +7,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import it.smartcommunitylabdhub.core.models.enums.State;
 import it.smartcommunitylabdhub.core.models.interfaces.BaseEntity;
-import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -22,29 +21,31 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Builder
 @Entity
-@Table(name = "runs")
-public class Run implements BaseEntity {
+@Table(name = "functions")
+public class Function implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @Column(nullable = false)
+    private String kind;
+
+    @Column(nullable = false)
     private String project;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String type;
+    private byte[] spec;
 
-    private byte[] body;
+    private byte[] extra;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -53,6 +54,9 @@ public class Run implements BaseEntity {
     @UpdateTimestamp
     private Date updated;
 
+    private Boolean embedded;
+
     @Enumerated(EnumType.STRING)
     private State state;
+
 }

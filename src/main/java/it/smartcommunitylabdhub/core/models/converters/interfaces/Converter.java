@@ -1,6 +1,6 @@
 package it.smartcommunitylabdhub.core.models.converters.interfaces;
 
-import it.smartcommunitylabdhub.core.exception.CustomException;
+import it.smartcommunitylabdhub.core.exceptions.CustomException;
 import it.smartcommunitylabdhub.core.models.converters.CommandFactory;
 
 public interface Converter<T, R> {

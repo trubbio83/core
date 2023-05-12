@@ -2,8 +2,9 @@ package it.smartcommunitylabdhub.core.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import it.smartcommunitylabdhub.core.models.entities.Run;
+
 import java.util.List;
-import it.smartcommunitylabdhub.core.models.Run;
 
 public interface RunRepository extends JpaRepository<Run, String> {
 

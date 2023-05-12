@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import it.smartcommunitylabdhub.core.models.Workflow;
+import it.smartcommunitylabdhub.core.models.entities.Workflow;
 
 public interface WorkflowRepository extends JpaRepository<Workflow, String> {
 

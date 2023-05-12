@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import it.smartcommunitylabdhub.core.models.Function;
+import it.smartcommunitylabdhub.core.models.entities.Function;
 
 public interface FunctionRepository extends JpaRepository<Function, String> {
 

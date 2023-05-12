@@ -1,13 +1,13 @@
-package it.smartcommunitylabdhub.core.models.converters.models;
+package it.smartcommunitylabdhub.core.models.converters.types;
 
 import org.springframework.stereotype.Component;
 
-import it.smartcommunitylabdhub.core.exception.CustomException;
-import it.smartcommunitylabdhub.core.models.Run;
+import it.smartcommunitylabdhub.core.exceptions.CustomException;
 import it.smartcommunitylabdhub.core.models.converters.CommandFactory;
 import it.smartcommunitylabdhub.core.models.converters.ConversionUtils;
 import it.smartcommunitylabdhub.core.models.converters.interfaces.Converter;
 import it.smartcommunitylabdhub.core.models.dtos.RunDTO;
+import it.smartcommunitylabdhub.core.models.entities.Run;
 import it.smartcommunitylabdhub.core.models.enums.State;
 
 @Component
