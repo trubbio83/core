@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import it.smartcommunitylabdhub.core.exception.CustomException;
 import it.smartcommunitylabdhub.core.models.Project;
+import it.smartcommunitylabdhub.core.models.converters.CommandFactory;
 import it.smartcommunitylabdhub.core.models.converters.interfaces.Converter;
 import it.smartcommunitylabdhub.core.models.dtos.ProjectDTO;
 import it.smartcommunitylabdhub.core.models.enums.State;
@@ -12,7 +13,7 @@ import it.smartcommunitylabdhub.core.models.enums.State;
 public class ProjectConverter implements Converter<ProjectDTO, Project> {
 
     @Override
-    public Project convert(ProjectDTO projectDTO) throws CustomException {
+    public Project convert(ProjectDTO projectDTO, CommandFactory commandFactory) throws CustomException {
         return Project.builder()
                 .id(projectDTO.getId())
                 .name(projectDTO.getName())
@@ -23,7 +24,7 @@ public class ProjectConverter implements Converter<ProjectDTO, Project> {
     }
 
     @Override
-    public ProjectDTO reverseConvert(Project project) throws CustomException {
+    public ProjectDTO reverseConvert(Project project, CommandFactory commandFactory) throws CustomException {
         return ProjectDTO.builder()
                 .id(project.getId())
                 .name(project.getName())

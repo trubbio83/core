@@ -8,19 +8,19 @@ import it.smartcommunitylabdhub.core.models.converters.interfaces.ConverterComma
 public class ConversionUtils {
     public static <S, T> T convert(S source, CommandFactory commandFactory, String kind) {
         ConverterCommand<S, T> command = commandFactory.createConvertCommand(kind, source);
-        return command.execute();
+        return command.execute(commandFactory);
     }
 
     public static <S, T> T reverse(S source, CommandFactory commandFactory, String kind) {
         ConverterCommand<S, T> command = commandFactory.createReverseConvertCommand(kind, source);
-        return command.execute();
+        return command.execute(commandFactory);
     }
 
     public static <S, T> Collection<T> convertIterable(Collection<S> source, CommandFactory commandFactory, String kind,
             Class<T> returnType) {
         return source.stream().map(element -> {
             ConverterCommand<S, T> command = commandFactory.createConvertCommand(kind, element);
-            return command.execute();
+            return command.execute(commandFactory);
         }).collect(Collectors.toList());
     }
 
@@ -29,7 +29,7 @@ public class ConversionUtils {
             Class<T> returnType) {
         return source.stream().map(element -> {
             ConverterCommand<S, T> command = commandFactory.createReverseConvertCommand(kind, element);
-            return command.execute();
+            return command.execute(commandFactory);
         }).collect(Collectors.toList());
     }
 

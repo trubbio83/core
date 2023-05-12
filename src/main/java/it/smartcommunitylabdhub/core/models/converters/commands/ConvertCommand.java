@@ -1,5 +1,6 @@
 package it.smartcommunitylabdhub.core.models.converters.commands;
 
+import it.smartcommunitylabdhub.core.models.converters.CommandFactory;
 import it.smartcommunitylabdhub.core.models.converters.interfaces.Converter;
 import it.smartcommunitylabdhub.core.models.converters.interfaces.ConverterCommand;
 
@@ -13,7 +14,7 @@ public class ConvertCommand<S, R> implements ConverterCommand<S, R> {
     }
 
     @Override
-    public R execute() {
-        return converter.convert(input);
+    public R execute(CommandFactory commandFactory) {
+        return converter.convert(input, commandFactory);
     }
 }

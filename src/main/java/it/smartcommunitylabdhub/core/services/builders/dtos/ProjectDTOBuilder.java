@@ -1,6 +1,7 @@
 package it.smartcommunitylabdhub.core.services.builders.dtos;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import it.smartcommunitylabdhub.core.models.Artifact;
 import it.smartcommunitylabdhub.core.models.Function;
@@ -51,20 +52,20 @@ public class ProjectDTOBuilder {
                                                         "cbor")))
 
                                         .with(dto -> dto.setFunctions(
-                                                        (List<FunctionDTO>) ConversionUtils.reverseIterable(
-                                                                        functions,
-                                                                        commandFactory,
-                                                                        "function", FunctionDTO.class)))
+                                                        functions.stream()
+                                                                        .map(f -> new FunctionDTOBuilder(commandFactory,
+                                                                                        f).build())
+                                                                        .collect(Collectors.toList())))
                                         .with(dto -> dto.setArtifacts(
-                                                        (List<ArtifactDTO>) ConversionUtils.reverseIterable(
-                                                                        artifacts,
-                                                                        commandFactory,
-                                                                        "artifact", ArtifactDTO.class)))
+                                                        artifacts.stream()
+                                                                        .map(a -> new ArtifactDTOBuilder(commandFactory,
+                                                                                        a).build())
+                                                                        .collect(Collectors.toList())))
                                         .with(dto -> dto.setWorkflows(
-                                                        (List<WorkflowDTO>) ConversionUtils.reverseIterable(
-                                                                        workflows,
-                                                                        commandFactory,
-                                                                        "workflow", WorkflowDTO.class)))
+                                                        workflows.stream()
+                                                                        .map(w -> new WorkflowDTOBuilder(commandFactory,
+                                                                                        w).build())
+                                                                        .collect(Collectors.toList())))
                                         .with(dto -> dto.setCreated(project.getCreated()))
                                         .with(dto -> dto.setUpdated(project.getUpdated()));
 

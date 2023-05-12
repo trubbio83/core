@@ -2,6 +2,8 @@ package it.smartcommunitylabdhub.core.services.interfaces;
 
 import it.smartcommunitylabdhub.core.models.Run;
 import it.smartcommunitylabdhub.core.models.dtos.FunctionDTO;
+import it.smartcommunitylabdhub.core.models.dtos.RunDTO;
+
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
@@ -9,13 +11,13 @@ import org.springframework.data.domain.Pageable;
 public interface FunctionService {
     List<FunctionDTO> getFunctions(Pageable pageable);
 
-    FunctionDTO createFunction(FunctionDTO projectDTO);
+    FunctionDTO createFunction(FunctionDTO functionDTO);
 
     FunctionDTO getFunction(String uuid);
 
-    FunctionDTO updateFunction(FunctionDTO projectDTO, String uuid);
+    FunctionDTO updateFunction(FunctionDTO functionDTO, String uuid);
 
     boolean deleteFunction(String uuid);
 
-    List<Run> getFunctionRuns(String uuid);
+    List<RunDTO> getFunctionRuns(String uuid);
 }

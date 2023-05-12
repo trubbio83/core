@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.cbor.CBORFactory;
 
 import it.smartcommunitylabdhub.core.exception.CustomException;
+import it.smartcommunitylabdhub.core.models.converters.CommandFactory;
 import it.smartcommunitylabdhub.core.models.converters.interfaces.Converter;
 
 import java.io.IOException;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Component;
 public class CBORConverter implements Converter<Map<String, Object>, byte[]> {
 
     @Override
-    public byte[] convert(Map<String, Object> map) throws CustomException {
+    public byte[] convert(Map<String, Object> map, CommandFactory commandFactory) throws CustomException {
         ObjectMapper objectMapper = new ObjectMapper(new CBORFactory());
         try {
             return objectMapper.writeValueAsBytes(map);
@@ -28,7 +29,7 @@ public class CBORConverter implements Converter<Map<String, Object>, byte[]> {
     }
 
     @Override
-    public Map<String, Object> reverseConvert(byte[] cborBytes) throws CustomException {
+    public Map<String, Object> reverseConvert(byte[] cborBytes, CommandFactory commandFactory) throws CustomException {
         ObjectMapper objectMapper = new ObjectMapper(new CBORFactory());
         try {
             if (cborBytes == null) {

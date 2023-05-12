@@ -10,41 +10,41 @@ import org.springframework.stereotype.Service;
 
 import it.smartcommunitylabdhub.core.exception.CoreException;
 import it.smartcommunitylabdhub.core.exception.CustomException;
-import it.smartcommunitylabdhub.core.models.Function;
+import it.smartcommunitylabdhub.core.models.Workflow;
 import it.smartcommunitylabdhub.core.models.Run;
 import it.smartcommunitylabdhub.core.models.converters.CommandFactory;
 import it.smartcommunitylabdhub.core.models.converters.ConversionUtils;
-import it.smartcommunitylabdhub.core.models.dtos.FunctionDTO;
+import it.smartcommunitylabdhub.core.models.dtos.WorkflowDTO;
 import it.smartcommunitylabdhub.core.models.dtos.RunDTO;
-import it.smartcommunitylabdhub.core.repositories.FunctionRepository;
+import it.smartcommunitylabdhub.core.repositories.WorkflowRepository;
 import it.smartcommunitylabdhub.core.repositories.RunRepository;
-import it.smartcommunitylabdhub.core.services.builders.daos.FunctionDAOBuilder;
-import it.smartcommunitylabdhub.core.services.builders.dtos.FunctionDTOBuilder;
-import it.smartcommunitylabdhub.core.services.interfaces.FunctionService;
+import it.smartcommunitylabdhub.core.services.builders.daos.WorkflowDAOBuilder;
+import it.smartcommunitylabdhub.core.services.builders.dtos.WorkflowDTOBuilder;
+import it.smartcommunitylabdhub.core.services.interfaces.WorkflowService;
 
 @Service
-public class FunctionServiceImpl implements FunctionService {
+public class WorkflowServiceImpl implements WorkflowService {
 
-    private final FunctionRepository functionRepository;
+    private final WorkflowRepository workflowRepository;
     private final RunRepository runRepository;
     private final CommandFactory commandFactory;
 
-    public FunctionServiceImpl(
-            FunctionRepository functionRepository,
+    public WorkflowServiceImpl(
+            WorkflowRepository workflowRepository,
             RunRepository runRepository,
             CommandFactory commandFactory) {
-        this.functionRepository = functionRepository;
+        this.workflowRepository = workflowRepository;
         this.runRepository = runRepository;
         this.commandFactory = commandFactory;
 
     }
 
     @Override
-    public List<FunctionDTO> getFunctions(Pageable pageable) {
+    public List<WorkflowDTO> getWorkflows(Pageable pageable) {
         try {
-            Page<Function> functionPage = this.functionRepository.findAll(pageable);
-            return functionPage.getContent().stream().map((function) -> {
-                return new FunctionDTOBuilder(commandFactory, function).build();
+            Page<Workflow> workflowPage = this.workflowRepository.findAll(pageable);
+            return workflowPage.getContent().stream().map((workflow) -> {
+                return new WorkflowDTOBuilder(commandFactory, workflow).build();
             }).collect(Collectors.toList());
         } catch (CustomException e) {
             throw new CoreException(
@@ -56,16 +56,16 @@ public class FunctionServiceImpl implements FunctionService {
     }
 
     @Override
-    public FunctionDTO createFunction(FunctionDTO functionDTO) {
+    public WorkflowDTO createWorkflow(WorkflowDTO workflowDTO) {
         try {
-            // Build a function and store it on db
-            final Function function = new FunctionDAOBuilder(commandFactory, functionDTO).build();
-            this.functionRepository.save(function);
+            // Build a workflow and store it on db
+            final Workflow workflow = new WorkflowDAOBuilder(commandFactory, workflowDTO).build();
+            this.workflowRepository.save(workflow);
 
-            // Return function DTO
-            return new FunctionDTOBuilder(
+            // Return workflow DTO
+            return new WorkflowDTOBuilder(
                     commandFactory,
-                    function).build();
+                    workflow).build();
 
         } catch (CustomException e) {
             throw new CoreException(
@@ -76,19 +76,19 @@ public class FunctionServiceImpl implements FunctionService {
     }
 
     @Override
-    public FunctionDTO getFunction(String uuid) {
-        final Function function = functionRepository.findById(uuid).orElse(null);
-        if (function == null) {
+    public WorkflowDTO getWorkflow(String uuid) {
+        final Workflow workflow = workflowRepository.findById(uuid).orElse(null);
+        if (workflow == null) {
             throw new CoreException(
-                    "FunctionNotFound",
-                    "The function you are searching for does not exist.",
+                    "WorkflowNotFound",
+                    "The workflow you are searching for does not exist.",
                     HttpStatus.NOT_FOUND);
         }
 
         try {
-            return new FunctionDTOBuilder(
+            return new WorkflowDTOBuilder(
                     commandFactory,
-                    function).build();
+                    workflow).build();
 
         } catch (CustomException e) {
             throw new CoreException(
@@ -99,25 +99,25 @@ public class FunctionServiceImpl implements FunctionService {
     }
 
     @Override
-    public FunctionDTO updateFunction(FunctionDTO functionDTO, String uuid) {
-        final Function function = functionRepository.findById(uuid).orElse(null);
-        if (function == null) {
+    public WorkflowDTO updateWorkflow(WorkflowDTO workflowDTO, String uuid) {
+        final Workflow workflow = workflowRepository.findById(uuid).orElse(null);
+        if (workflow == null) {
             throw new CoreException(
-                    "FunctionNotFound",
-                    "The function you are searching for does not exist.",
+                    "WorkflowNotFound",
+                    "The workflow you are searching for does not exist.",
                     HttpStatus.NOT_FOUND);
         }
 
         try {
 
-            FunctionDAOBuilder functionBuilder = new FunctionDAOBuilder(commandFactory, functionDTO);
+            WorkflowDAOBuilder workflowBuilder = new WorkflowDAOBuilder(commandFactory, workflowDTO);
 
-            final Function functionUpdated = functionBuilder.update(function);
-            this.functionRepository.save(functionUpdated);
+            final Workflow workflowUpdated = workflowBuilder.update(workflow);
+            this.workflowRepository.save(workflowUpdated);
 
-            return new FunctionDTOBuilder(
+            return new WorkflowDTOBuilder(
                     commandFactory,
-                    functionUpdated).build();
+                    workflowUpdated).build();
 
         } catch (CustomException e) {
             throw new CoreException(
@@ -128,30 +128,30 @@ public class FunctionServiceImpl implements FunctionService {
     }
 
     @Override
-    public boolean deleteFunction(String uuid) {
+    public boolean deleteWorkflow(String uuid) {
         try {
-            this.functionRepository.deleteById(uuid);
+            this.workflowRepository.deleteById(uuid);
             return true;
         } catch (Exception e) {
             throw new CoreException(
                     "InternalServerError",
-                    "cannot delete function",
+                    "cannot delete workflow",
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public List<RunDTO> getFunctionRuns(String uuid) {
-        final Function function = functionRepository.findById(uuid).orElse(null);
-        if (function == null) {
+    public List<RunDTO> getWorkflowRuns(String uuid) {
+        final Workflow workflow = workflowRepository.findById(uuid).orElse(null);
+        if (workflow == null) {
             throw new CoreException(
-                    "FunctionNotFound",
-                    "The function you are searching for does not exist.",
+                    "WorkflowNotFound",
+                    "The workflow you are searching for does not exist.",
                     HttpStatus.NOT_FOUND);
         }
 
         try {
-            List<Run> runs = this.runRepository.findByName(function.getName());
+            List<Run> runs = this.runRepository.findByName(workflow.getName());
             return (List<RunDTO>) ConversionUtils.reverseIterable(runs, commandFactory, "run", RunDTO.class);
 
         } catch (CustomException e) {

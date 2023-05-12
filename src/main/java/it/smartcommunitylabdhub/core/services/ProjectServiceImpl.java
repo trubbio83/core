@@ -24,7 +24,7 @@ import it.smartcommunitylabdhub.core.repositories.ArtifactRepository;
 import it.smartcommunitylabdhub.core.repositories.FunctionRepository;
 import it.smartcommunitylabdhub.core.repositories.ProjectRepository;
 import it.smartcommunitylabdhub.core.repositories.WorkflowRepository;
-import it.smartcommunitylabdhub.core.services.builders.daos.ProjectBuilder;
+import it.smartcommunitylabdhub.core.services.builders.daos.ProjectDAOBuilder;
 import it.smartcommunitylabdhub.core.services.builders.dtos.ProjectDTOBuilder;
 import it.smartcommunitylabdhub.core.services.interfaces.ProjectService;
 
@@ -103,7 +103,7 @@ public class ProjectServiceImpl implements ProjectService {
     public ProjectDTO createProject(ProjectDTO projectDTO) {
         try {
             // Build a project and store it on db
-            final Project project = new ProjectBuilder(commandFactory, projectDTO).build();
+            final Project project = new ProjectDAOBuilder(commandFactory, projectDTO).build();
             this.projectRepository.save(project);
 
             // Return project DTO
@@ -136,7 +136,7 @@ public class ProjectServiceImpl implements ProjectService {
 
         try {
 
-            ProjectBuilder projectBuilder = new ProjectBuilder(commandFactory, projectDTO);
+            ProjectDAOBuilder projectBuilder = new ProjectDAOBuilder(commandFactory, projectDTO);
 
             final Project projectUpdated = projectBuilder.update(project);
             this.projectRepository.save(projectUpdated);

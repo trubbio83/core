@@ -11,6 +11,7 @@ import it.smartcommunitylabdhub.core.models.converters.models.CBORConverter;
 import it.smartcommunitylabdhub.core.models.converters.models.FunctionConverter;
 import it.smartcommunitylabdhub.core.models.converters.models.IntegerConverter;
 import it.smartcommunitylabdhub.core.models.converters.models.ProjectConverter;
+import it.smartcommunitylabdhub.core.models.converters.models.RunConverter;
 import it.smartcommunitylabdhub.core.models.converters.models.WorkflowConverter;
 
 @Configuration
@@ -27,6 +28,7 @@ public class ConverterConfig {
         factory.registerConverter("project", ProjectConverter::new);
         factory.registerConverter("cbor", CBORConverter::new);
         factory.registerConverter("integer", IntegerConverter::new);
+        factory.registerConverter("run", RunConverter::new);
 
         return factory;
     }
