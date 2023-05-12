@@ -1,7 +1,5 @@
 package it.smartcommunitylabdhub.core.models.converters.models;
 
-import java.util.Map;
-
 import org.springframework.stereotype.Component;
 
 import it.smartcommunitylabdhub.core.exception.CustomException;

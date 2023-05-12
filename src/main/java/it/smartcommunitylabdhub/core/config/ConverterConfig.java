@@ -23,7 +23,7 @@ public class ConverterConfig {
 
         // Register converter
         factory.registerConverter("function", FunctionConverter::new);
-        factory.registerConverter("fartifact", ArtifactConverter::new);
+        factory.registerConverter("artifact", ArtifactConverter::new);
         factory.registerConverter("workflow", WorkflowConverter::new);
         factory.registerConverter("project", ProjectConverter::new);
         factory.registerConverter("cbor", CBORConverter::new);

@@ -1,6 +1,5 @@
 package it.smartcommunitylabdhub.core.services.interfaces;
 
-import it.smartcommunitylabdhub.core.models.Run;
 import it.smartcommunitylabdhub.core.models.dtos.FunctionDTO;
 import it.smartcommunitylabdhub.core.models.dtos.RunDTO;
 

@@ -18,8 +18,8 @@ import it.smartcommunitylabdhub.core.models.dtos.WorkflowDTO;
 import it.smartcommunitylabdhub.core.models.dtos.RunDTO;
 import it.smartcommunitylabdhub.core.repositories.WorkflowRepository;
 import it.smartcommunitylabdhub.core.repositories.RunRepository;
-import it.smartcommunitylabdhub.core.services.builders.daos.WorkflowDAOBuilder;
 import it.smartcommunitylabdhub.core.services.builders.dtos.WorkflowDTOBuilder;
+import it.smartcommunitylabdhub.core.services.builders.entities.WorkflowEntityBuilder;
 import it.smartcommunitylabdhub.core.services.interfaces.WorkflowService;
 
 @Service
@@ -59,7 +59,7 @@ public class WorkflowServiceImpl implements WorkflowService {
     public WorkflowDTO createWorkflow(WorkflowDTO workflowDTO) {
         try {
             // Build a workflow and store it on db
-            final Workflow workflow = new WorkflowDAOBuilder(commandFactory, workflowDTO).build();
+            final Workflow workflow = new WorkflowEntityBuilder(commandFactory, workflowDTO).build();
             this.workflowRepository.save(workflow);
 
             // Return workflow DTO
@@ -110,7 +110,7 @@ public class WorkflowServiceImpl implements WorkflowService {
 
         try {
 
-            WorkflowDAOBuilder workflowBuilder = new WorkflowDAOBuilder(commandFactory, workflowDTO);
+            WorkflowEntityBuilder workflowBuilder = new WorkflowEntityBuilder(commandFactory, workflowDTO);
 
             final Workflow workflowUpdated = workflowBuilder.update(workflow);
             this.workflowRepository.save(workflowUpdated);

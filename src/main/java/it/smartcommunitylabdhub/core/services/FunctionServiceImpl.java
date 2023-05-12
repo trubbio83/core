@@ -18,8 +18,8 @@ import it.smartcommunitylabdhub.core.models.dtos.FunctionDTO;
 import it.smartcommunitylabdhub.core.models.dtos.RunDTO;
 import it.smartcommunitylabdhub.core.repositories.FunctionRepository;
 import it.smartcommunitylabdhub.core.repositories.RunRepository;
-import it.smartcommunitylabdhub.core.services.builders.daos.FunctionDAOBuilder;
 import it.smartcommunitylabdhub.core.services.builders.dtos.FunctionDTOBuilder;
+import it.smartcommunitylabdhub.core.services.builders.entities.FunctionEntityBuilder;
 import it.smartcommunitylabdhub.core.services.interfaces.FunctionService;
 
 @Service
@@ -59,7 +59,7 @@ public class FunctionServiceImpl implements FunctionService {
     public FunctionDTO createFunction(FunctionDTO functionDTO) {
         try {
             // Build a function and store it on db
-            final Function function = new FunctionDAOBuilder(commandFactory, functionDTO).build();
+            final Function function = new FunctionEntityBuilder(commandFactory, functionDTO).build();
             this.functionRepository.save(function);
 
             // Return function DTO
@@ -110,7 +110,7 @@ public class FunctionServiceImpl implements FunctionService {
 
         try {
 
-            FunctionDAOBuilder functionBuilder = new FunctionDAOBuilder(commandFactory, functionDTO);
+            FunctionEntityBuilder functionBuilder = new FunctionEntityBuilder(commandFactory, functionDTO);
 
             final Function functionUpdated = functionBuilder.update(function);
             this.functionRepository.save(functionUpdated);

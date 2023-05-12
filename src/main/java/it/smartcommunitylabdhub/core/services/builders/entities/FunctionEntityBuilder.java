@@ -1,4 +1,4 @@
-package it.smartcommunitylabdhub.core.services.builders.daos;
+package it.smartcommunitylabdhub.core.services.builders.entities;
 
 import it.smartcommunitylabdhub.core.models.Function;
 import it.smartcommunitylabdhub.core.models.converters.CommandFactory;
@@ -7,12 +7,12 @@ import it.smartcommunitylabdhub.core.models.dtos.FunctionDTO;
 import it.smartcommunitylabdhub.core.models.enums.State;
 import it.smartcommunitylabdhub.core.services.factory.EntityFactory;
 
-public class FunctionDAOBuilder {
+public class FunctionEntityBuilder {
 
         private CommandFactory commandFactory;
         private FunctionDTO functionDTO;
 
-        public FunctionDAOBuilder(
+        public FunctionEntityBuilder(
                         CommandFactory commandFactory,
                         FunctionDTO functionDTO) {
                 this.functionDTO = functionDTO;

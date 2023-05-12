@@ -1,4 +1,4 @@
-package it.smartcommunitylabdhub.core.services.builders.daos;
+package it.smartcommunitylabdhub.core.services.builders.entities;
 
 import it.smartcommunitylabdhub.core.models.Workflow;
 import it.smartcommunitylabdhub.core.models.converters.CommandFactory;
@@ -7,12 +7,12 @@ import it.smartcommunitylabdhub.core.models.dtos.WorkflowDTO;
 import it.smartcommunitylabdhub.core.models.enums.State;
 import it.smartcommunitylabdhub.core.services.factory.EntityFactory;
 
-public class WorkflowDAOBuilder {
+public class WorkflowEntityBuilder {
 
         private CommandFactory commandFactory;
         private WorkflowDTO workflowDTO;
 
-        public WorkflowDAOBuilder(
+        public WorkflowEntityBuilder(
                         CommandFactory commandFactory,
                         WorkflowDTO workflowDTO) {
                 this.workflowDTO = workflowDTO;

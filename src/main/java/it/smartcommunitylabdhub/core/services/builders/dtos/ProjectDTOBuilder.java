@@ -9,10 +9,7 @@ import it.smartcommunitylabdhub.core.models.Project;
 import it.smartcommunitylabdhub.core.models.Workflow;
 import it.smartcommunitylabdhub.core.models.converters.CommandFactory;
 import it.smartcommunitylabdhub.core.models.converters.ConversionUtils;
-import it.smartcommunitylabdhub.core.models.dtos.ArtifactDTO;
-import it.smartcommunitylabdhub.core.models.dtos.FunctionDTO;
 import it.smartcommunitylabdhub.core.models.dtos.ProjectDTO;
-import it.smartcommunitylabdhub.core.models.dtos.WorkflowDTO;
 import it.smartcommunitylabdhub.core.models.enums.State;
 import it.smartcommunitylabdhub.core.services.factory.EntityFactory;
 

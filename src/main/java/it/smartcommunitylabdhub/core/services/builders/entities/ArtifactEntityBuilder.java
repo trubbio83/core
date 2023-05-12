@@ -1,4 +1,4 @@
-package it.smartcommunitylabdhub.core.services.builders.daos;
+package it.smartcommunitylabdhub.core.services.builders.entities;
 
 import it.smartcommunitylabdhub.core.models.Artifact;
 import it.smartcommunitylabdhub.core.models.converters.CommandFactory;
@@ -7,12 +7,12 @@ import it.smartcommunitylabdhub.core.models.dtos.ArtifactDTO;
 import it.smartcommunitylabdhub.core.models.enums.State;
 import it.smartcommunitylabdhub.core.services.factory.EntityFactory;
 
-public class ArtifactDAOBuilder {
+public class ArtifactEntityBuilder {
 
         private CommandFactory commandFactory;
         private ArtifactDTO artifactDTO;
 
-        public ArtifactDAOBuilder(
+        public ArtifactEntityBuilder(
                         CommandFactory commandFactory,
                         ArtifactDTO artifactDTO) {
                 this.artifactDTO = artifactDTO;
