@@ -6,18 +6,35 @@ import it.smartcommunitylabdhub.core.exception.CustomException;
 import it.smartcommunitylabdhub.core.models.Artifact;
 import it.smartcommunitylabdhub.core.models.converters.interfaces.Converter;
 import it.smartcommunitylabdhub.core.models.dtos.ArtifactDTO;
+import it.smartcommunitylabdhub.core.models.enums.State;
 
 @Component
 public class ArtifactConverter implements Converter<ArtifactDTO, Artifact> {
 
     @Override
     public Artifact convert(ArtifactDTO artifactDTO) throws CustomException {
-        return Artifact.builder().name(artifactDTO.getName()).build();
+        return Artifact.builder()
+                .id(artifactDTO.getId())
+                .name(artifactDTO.getName())
+                .kind(artifactDTO.getKind())
+                .project(artifactDTO.getProject())
+                .embedded(artifactDTO.getEmbedded())
+                .state(artifactDTO.getState() == null ? State.CREATED : State.valueOf(artifactDTO.getState()))
+                .build();
     }
 
     @Override
     public ArtifactDTO reverseConvert(Artifact artifact) throws CustomException {
-        return new ArtifactDTO(artifact.getId(), artifact.getName());
+        return ArtifactDTO.builder()
+                .id(artifact.getId())
+                .name(artifact.getName())
+                .kind(artifact.getKind())
+                .project(artifact.getProject())
+                .embedded(artifact.getEmbedded())
+                .state(artifact.getState() == null ? State.CREATED.name() : artifact.getState().name())
+                .created(artifact.getCreated())
+                .updated(artifact.getUpdated())
+                .build();
     }
 
 }
