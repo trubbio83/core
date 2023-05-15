@@ -1,7 +1,9 @@
 package it.smartcommunitylabdhub.core.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -28,8 +30,18 @@ public class RunSerivceImpl implements RunService {
 
     @Override
     public List<RunDTO> getRuns(Pageable pageable) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRuns'");
+        try {
+            Page<Run> runPage = this.runRepository.findAll(pageable);
+            return runPage.getContent().stream()
+                    .map(run -> (RunDTO) ConversionUtils.reverse(run, commandFactory, "run"))
+                    .collect(Collectors.toList());
+
+        } catch (CustomException e) {
+            throw new CoreException(
+                    "InternalServerError",
+                    e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -55,8 +67,15 @@ public class RunSerivceImpl implements RunService {
 
     @Override
     public boolean deleteRun(String uuid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteRun'");
+        try {
+            this.runRepository.deleteById(uuid);
+            return true;
+        } catch (Exception e) {
+            throw new CoreException(
+                    "InternalServerError",
+                    "cannot delete artifact",
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

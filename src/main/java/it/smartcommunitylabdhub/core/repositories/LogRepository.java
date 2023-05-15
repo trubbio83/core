@@ -1,5 +1,14 @@
 package it.smartcommunitylabdhub.core.repositories;
 
-public class LogRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import it.smartcommunitylabdhub.core.models.entities.Log;
+
+import java.util.List;
+
+public interface LogRepository extends JpaRepository<Log, String> {
+
+    List<Log> findByProject(String uuid);
+
+    List<Log> findByRun(String uuid);
 }

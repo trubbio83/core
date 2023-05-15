@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,5 +33,10 @@ public class RunController {
     @GetMapping(path = "", produces = "application/json; charset=UTF-8")
     public ResponseEntity<List<RunDTO>> getRuns(Pageable pageable) {
         return ResponseEntity.ok(this.runService.getRuns(pageable));
+    }
+
+    @DeleteMapping(path = "/{uuid}")
+    public ResponseEntity<Boolean> deleteArtifact(@PathVariable String uuid) {
+        return ResponseEntity.ok(this.runService.deleteRun(uuid));
     }
 }
