@@ -64,6 +64,7 @@ public class VersionedHandlerMapping extends RequestMappingHandlerMapping {
     private RequestMappingInfo createVersionedMappingInfo(RequestMappingInfo mappingInfo, String version) {
         String originalPattern = mappingInfo.getPathPatternsCondition().getPatterns().iterator().next()
                 .getPatternString();
+
         String versionedPattern = "/api/" + version + originalPattern;
 
         // Putting the version as dynamic parameter I cannot I cannot register multiple
