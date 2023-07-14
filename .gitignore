@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+src/main/java/it/smartcommunitylabdhub/core/components/kubernetes/kaniko/KanikoImageBuilder.java
